@@ -13,7 +13,7 @@ def filter_data(input_files, output_file):
         filtered_df.loc[:, 'sales'] = filtered_df['price'].str.replace('$', '', regex=False).astype(float) * filtered_df['quantity']
         data.append(filtered_df[['sales', 'date', 'region']])
 
-    filtered_data = pd.concat(data, ignore_index=True).sort_values(by='region', ascending=True)
+    filtered_data = pd.concat(data, ignore_index=True).sort_values(by = ['region', 'date'], ascending = [True, True])
     filtered_data.to_csv(output_file, index=False)
 
 if __name__ == '__main__':
