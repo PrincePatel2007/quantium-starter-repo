@@ -2,15 +2,30 @@ from dash import Dash, html, dcc, Output, Input
 import plotly.express as px
 import pandas as pd
 
+INPUT_FILE = 'data/filtered_sales_data.csv'
+
 # 1. Initialize the Dash App
 app = Dash(__name__)
 
 # Mock data to simulate filtered sales data
-data = {
+'''data = {
     "date": ["2026-01-01", "2026-01-02", "2026-01-01", "2026-01-02"],
     "sales": [100, 150, 80, 120],
     "region": ["north", "north", "south", "south"]
-}
+}'''
+
+# With real data
+data = {}
+
+with open(INPUT_FILE, 'r') as file:  # SUGGESTED EDIT APPLIED HERE
+    next(file)  # Skip header if there is one
+    for line in file:
+        date, sales, region = line.strip().split(',')
+        data[date] = {
+            "sales": float(sales),
+            "region": region
+        }
+
 df = pd.DataFrame(data)
 
 # 2. Define the Layout (What the user sees)
