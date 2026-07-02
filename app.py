@@ -15,16 +15,15 @@ app = Dash(__name__)
 }'''
 
 # With real data
-data = {}
+data = []
 
 with open(INPUT_FILE, 'r') as file:  # SUGGESTED EDIT APPLIED HERE
     next(file)  # Skip header if there is one
     for line in file:
-        date, sales, region = line.strip().split(',')
-        data[date] = {
-            "sales": float(sales),
-            "region": region
-        }
+        date, sales, region = line[0], line[1], line[2]
+        data.append({"date": date, "sales": sales, "region": region})
+
+# Convert data to a pandas DataFrame
 
 df = pd.DataFrame(data)
 
