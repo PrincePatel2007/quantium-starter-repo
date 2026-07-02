@@ -59,7 +59,7 @@ def update_graph(selected_region):
         filtered_df = df[df["region"] == selected_region]
     
     # Create an updated line graph using Plotly Express
-    fig = px.line(filtered_df, x="date", y="sales", title=f"Sales Timeline - {selected_region.capitalize()}")
+    fig = px.line(filtered_df, x="date", y="sales", title=f"Sales Timeline - {selected_region.capitalize()}", labels= {'sales': 'Sales ($)', 'date': 'Date'})
     return fig
 
 # 4. Run the Server
