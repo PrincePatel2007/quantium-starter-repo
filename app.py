@@ -1,8 +1,7 @@
 from dash import Dash, html, dcc, Output, Input
 import plotly.express as px
 import pandas as pd
-import csv
-import datetime
+
 
 INPUT_FILE = 'data/filtered_sales_data.csv'
 
@@ -30,7 +29,15 @@ app.layout = html.Div([
     # Dropdown menu component
     dcc.Dropdown(
         id="region-dropdown",
-        options=[{"label": r.capitalize(), "value": r} for r in df["region"].unique()],
+
+        options= [
+            {"label": "North", "value": "north"},
+            {"label": "South", "value": "south"},
+            {"label": "East", "value": "east"},
+            {"label": "West", "value": "west"},
+            {"label": "All Regions", "value": "all"}
+        ],
+
         value="north", # Default value
         clearable=False
     ),
@@ -45,7 +52,11 @@ app.layout = html.Div([
     Input("region-dropdown", "value")
 )
 def update_graph(selected_region):
-    filtered_df = df[df["region"] == selected_region]
+
+    if selected_region=='all':
+        filtered_df = df.copy()
+    else:
+        filtered_df = df[df["region"] == selected_region]
     
     # Create an updated line graph using Plotly Express
     fig = px.line(filtered_df, x="date", y="sales", title=f"Sales Timeline - {selected_region.capitalize()}")
