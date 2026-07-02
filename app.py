@@ -17,19 +17,9 @@ app = Dash(__name__)
 }'''
 
 # With real data
-data = []
+df = pd.read_csv(INPUT_FILE)
+df = df.sort_values(by="date")
 
-with open(INPUT_FILE, 'r') as file:
-    reader = csv.reader(file)
-    next(reader)  # Skip header if there is one
-    for row in reader:
-        sales = float(row[0])
-        date = datetime.datetime.strptime(row[1], '%Y-%m-%d').date()
-        region = row[2]
-        data.append({"date": date, "sales": sales, "region": region})
-
-# Convert data to a pandas DataFrame
-df = pd.DataFrame(data)
 
 print(df[0:20]) #For debugging purposes
 
