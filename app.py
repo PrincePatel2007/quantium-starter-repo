@@ -19,7 +19,7 @@ app = Dash(__name__)
 # With real data
 data = []
 
-with open(INPUT_FILE, 'r') as file:  # SUGGESTED EDIT APPLIED HERE
+with open(INPUT_FILE, 'r') as file:
     reader = csv.reader(file)
     next(reader)  # Skip header if there is one
     for row in reader:
@@ -55,7 +55,6 @@ app.layout = html.Div([
     Input("region-dropdown", "value")
 )
 def update_graph(selected_region):
-    # Filter dataset based on dropdown choice
     filtered_df = df[df["region"] == selected_region]
     
     # Create an updated line graph using Plotly Express
